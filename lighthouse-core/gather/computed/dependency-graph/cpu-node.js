@@ -10,12 +10,14 @@ const Node = require('./node');
 class CPUNode extends Node {
   /**
    * @param {!TraceEvent} parentEvent
-   * @param {!Array<TraceEvent>=} children
+   * @param {!Array<TraceEvent>=} childEvents
    */
-  constructor(parentEvent, children = []) {
-    super(`${parentEvent.tid}.${parentEvent.ts}`);
+  constructor(parentEvent, childEvents = []) {
+    const nodeId = `${parentEvent.tid}.${parentEvent.ts}`;
+    super(nodeId);
+
     this._event = parentEvent;
-    this._children = children;
+    this._childEvents = childEvents;
   }
 
   /**
@@ -49,8 +51,8 @@ class CPUNode extends Node {
   /**
    * @return {!TraceEvent}
    */
-  get children() {
-    return this._children;
+  get childEvents() {
+    return this._childEvents;
   }
 
   /**
